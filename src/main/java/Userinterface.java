@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -9,7 +10,7 @@ public class Userinterface {
 
 
     public void menu() {
-        controller.createTestData();
+
         int menuValg = 0;
 
         while (menuValg != 9) {
@@ -22,6 +23,7 @@ public class Userinterface {
             3. Søg efter superheroes
             4. Redigere superhero
             5. Slet superhero
+            6. Gem liste af data
             9. Afslut
             """);
 
@@ -42,7 +44,7 @@ public class Userinterface {
         }
 
     }
-    public void startprogram(int menuValg) {
+    public void startprogram(int menuValg)  {
         if (menuValg == 1) {
             createSuperhero();
         } else if (menuValg == 2) {
@@ -53,7 +55,13 @@ public class Userinterface {
             editSuperhero();
         } else if (menuValg == 5) {
             deleteSuperheroUserInput();
-        } else if (menuValg == 9) {
+        } else if (menuValg == 6) {
+            try {
+                controller.saveData();
+            } catch (FileNotFoundException e) {
+                System.out.println("Den fejlede squ! Gem ");
+            }
+        }else if (menuValg == 9) {
             System.out.println("Programmet afsluttes");
         }
 

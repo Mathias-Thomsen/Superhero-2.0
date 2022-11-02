@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class Controller {
@@ -22,8 +24,15 @@ public class Controller {
 
     }
 
-    public void createTestData() {
+    /*public void createTestData() {
         database.createTestData();
+    }
+
+     */
+
+    public void saveData() throws FileNotFoundException {
+        FileHandler fileHandler = new FileHandler();
+        fileHandler.saveData(database.getSuperheroes());
     }
 
     public String getSuperHeroName() {
