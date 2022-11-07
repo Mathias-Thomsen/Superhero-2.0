@@ -1,3 +1,7 @@
+package ui;
+
+import Superhero.Superhero;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -207,7 +211,7 @@ public class Userinterface {
 
 
         do {
-            System.out.println("Superhero navn: " + editSuperhero.getSuperHeroName());
+            System.out.println("Classes.Superhero navn: " + editSuperhero.getSuperHeroName());
 
             try {
                 System.out.print("Skriv din rettelse her: ");
@@ -223,7 +227,7 @@ public class Userinterface {
         } while (!userValgFalse);
 
         do {
-            System.out.println("Superhero rigtige navn: " + editSuperhero.getReelName());
+            System.out.println("Classes.Superhero rigtige navn: " + editSuperhero.getReelName());
 
             try {
                 System.out.print("Skriv din rettelse her: ");
