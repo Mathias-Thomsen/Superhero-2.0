@@ -26,13 +26,14 @@ public class Userinterface {
             4. Redigere superhero
             5. Slet superhero
             6. Gem liste af superheroes 
-            7. Load liste af superheroes 
+            7. Load liste af superheroes
+            8. Sort database of superheroes
             9. Afslut
             """);
 
 
             do {
-                String valg     = scanner.nextLine().trim();
+                String valg = scanner.nextLine().trim();
                 try {
                     menuValg = Integer.parseInt(valg);
                     userValgFalse = true;
@@ -72,11 +73,61 @@ public class Userinterface {
                 System.out.println("Den fejlede squ");
             }
 
-        } else if (menuValg == 9) {
+        } else if (menuValg == 8){
+            sortingMenu();
+
+        }else if (menuValg == 9) {
             System.out.println("Programmet afsluttes");
         }
 
     }
+    public void sortingMenu(){
+        int userSorteringsValg = 0;
+
+        System.out.println("""
+                -----------------------
+                Vælg sorterings metode:
+                -----------------------
+                1. Sorter efter superhero navn
+                2. Sorter efter rigtige navn
+                3. Sorter efter menneske
+                4. Sorter efter superkrafter
+                5. Sorter efter oprindelses år
+                6. Sorter efter power level
+                9. Gå tilbage til menu
+                """);
+        do {
+            String sorteringsvalg = scanner.nextLine().trim();
+            try {
+                userSorteringsValg = Integer.parseInt(sorteringsvalg);
+                userValgFalse = true;
+            } catch (NumberFormatException e) {
+                System.out.print("Der skete en fejl! - Indtast venligst et gyldigt nummer: ");
+                scanner.nextLine();
+            }
+
+        } while (!userValgFalse);
+        vælgSortingMetode(userSorteringsValg);
+    }
+    public void vælgSortingMetode(int userSorteringValg)  {
+        if (userSorteringValg == 1) {
+            System.out.println("sortere ud fra navn");
+        } else if (userSorteringValg == 2) {
+            System.out.println("sortere ud fra rigtige navn");
+        } else if (userSorteringValg == 3) {
+            System.out.println("sortere ud fra menneske");
+        } else if (userSorteringValg == 4) {
+            System.out.println("sortere ud fra superkrafter");
+        } else if (userSorteringValg == 5) {
+            System.out.println("sortere ud fra oprindelses år");
+        } else if (userSorteringValg == 6) {
+            System.out.println("sortere ud fra navn");
+        } else if (userSorteringValg == 9) {
+            startprogram(userSorteringValg);
+        }
+
+    }
+
     public void createSuperhero() {
         System.out.println("-----------------------------------------------------");
         System.out.print("Indtast navnet på din superhelt (fx Spiderman): ");
