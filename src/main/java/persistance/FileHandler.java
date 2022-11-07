@@ -1,3 +1,7 @@
+package persistance;
+
+import Superhero.Superhero;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;

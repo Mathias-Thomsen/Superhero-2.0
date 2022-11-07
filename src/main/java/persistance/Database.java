@@ -1,3 +1,7 @@
+package persistance;
+
+import Superhero.Superhero;
+
 import java.util.ArrayList;
 
 public class Database {
