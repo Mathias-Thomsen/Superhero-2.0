@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-11-07T20:46:31.722Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36" etag="ZWCJQshsVcPZuOZ0xDms" version="20.4.1" type="github">
+<mxfile host="app.diagrams.net" modified="2022-11-07T21:30:45.184Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36" etag="rQYVqVecKCwiwctUJ7c6" version="20.4.1" type="github">
   <diagram id="kgpKYQtTHZ0yAKxKKP6v" name="Page-1">
     <mxGraphModel dx="1113" dy="648" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -32,7 +32,7 @@
         <mxCell id="gGg62NKrL8g5sjloR6-s-3" value="" style="points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;strokeWidth=1;" vertex="1" parent="gGg62NKrL8g5sjloR6-s-2">
           <mxGeometry x="45" y="80" width="10" height="160" as="geometry" />
         </mxCell>
-        <mxCell id="gGg62NKrL8g5sjloR6-s-8" value="filehandler.loadData()" style="verticalAlign=bottom;endArrow=block;entryX=0;entryY=0;shadow=0;strokeWidth=1;" edge="1" parent="gGg62NKrL8g5sjloR6-s-2">
+        <mxCell id="gGg62NKrL8g5sjloR6-s-8" value="filehandler.saveData()" style="verticalAlign=bottom;endArrow=block;entryX=0;entryY=0;shadow=0;strokeWidth=1;" edge="1" parent="gGg62NKrL8g5sjloR6-s-2">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="-125" y="90.00000000000011" as="sourcePoint" />
             <mxPoint x="45" y="90.00000000000011" as="targetPoint" />
@@ -44,7 +44,7 @@
         <mxCell id="gGg62NKrL8g5sjloR6-s-5" value="" style="points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;strokeWidth=1;" vertex="1" parent="gGg62NKrL8g5sjloR6-s-4">
           <mxGeometry x="45" y="80" width="10" height="160" as="geometry" />
         </mxCell>
-        <mxCell id="gGg62NKrL8g5sjloR6-s-9" value="filehandler.loadData(database.getSuperheroes)" style="verticalAlign=bottom;endArrow=block;entryX=0;entryY=0;shadow=0;strokeWidth=1;" edge="1" parent="gGg62NKrL8g5sjloR6-s-4" source="gGg62NKrL8g5sjloR6-s-3">
+        <mxCell id="gGg62NKrL8g5sjloR6-s-9" value="filehandler.saveData(database.getSuperheroes)" style="verticalAlign=bottom;endArrow=block;entryX=0;entryY=0;shadow=0;strokeWidth=1;" edge="1" parent="gGg62NKrL8g5sjloR6-s-4" source="gGg62NKrL8g5sjloR6-s-3">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="-125" y="100.00000000000011" as="sourcePoint" />
             <mxPoint x="45" y="100.00000000000011" as="targetPoint" />
