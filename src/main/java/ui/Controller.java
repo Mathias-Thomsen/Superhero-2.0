@@ -5,10 +5,12 @@ import persistance.FileHandler;
 import Superhero.Superhero;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Controller {
     Database database = new Database();
+    FileHandler fileHandler = new FileHandler();
     Superhero superhero;
 
 
@@ -29,15 +31,19 @@ public class Controller {
 
     }
 
-    /*public void createTestData() {
+    public void createTestData() {
         database.createTestData();
     }
 
-     */
+
 
     public void saveData() throws FileNotFoundException {
-        FileHandler fileHandler = new FileHandler();
         fileHandler.saveData(database.getSuperheroes());
+    }
+
+    public void loadData() throws IOException {
+        fileHandler.loadData();
+
     }
 
     public String getSuperHeroName() {

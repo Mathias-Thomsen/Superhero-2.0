@@ -9,6 +9,10 @@ public class Superhero {
     private double powerLevel;
 
     //konstruktør
+
+    public Superhero() {
+
+    }
     public Superhero(String superHeroName, String reelName, boolean isHuman, String superPower, int creationYear, double powerLevel) {
         this.superHeroName = superHeroName;
         this.reelName = reelName;

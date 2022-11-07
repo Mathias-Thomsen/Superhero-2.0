@@ -3,6 +3,7 @@ package ui;
 import Superhero.Superhero;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -14,6 +15,7 @@ public class Userinterface {
 
 
     public void menu() {
+        controller.createTestData();
 
         int menuValg = 0;
 
@@ -27,13 +29,14 @@ public class Userinterface {
             3. Søg efter superheroes
             4. Redigere superhero
             5. Slet superhero
-            6. Gem liste af data
+            6. Gem liste af superheroes 
+            7. Load liste af superheroes 
             9. Afslut
             """);
 
 
             do {
-                String valg = scanner.nextLine().trim();
+                String valg     = scanner.nextLine().trim();
                 try {
                     menuValg = Integer.parseInt(valg);
                     userValgFalse = true;
@@ -62,10 +65,18 @@ public class Userinterface {
         } else if (menuValg == 6) {
             try {
                 controller.saveData();
-            } catch (FileNotFoundException e) {
+            } catch (IOException e) {
                 System.out.println("Den fejlede squ! Gem ");
             }
-        }else if (menuValg == 9) {
+
+        }else if (menuValg == 7){
+            try {
+                controller.loadData();
+            } catch (IOException e) {
+                System.out.println("Den fejlede squ");
+            }
+
+        } else if (menuValg == 9) {
             System.out.println("Programmet afsluttes");
         }
 
