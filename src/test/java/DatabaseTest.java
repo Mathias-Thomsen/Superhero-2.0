@@ -1,5 +1,7 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import superhero.Database;
+import superhero.Superhero;
 
 import java.util.ArrayList;
 

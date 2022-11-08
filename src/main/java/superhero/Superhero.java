@@ -1,3 +1,5 @@
+package superhero;
+
 public class Superhero {
     private String superHeroName;
     private String reelName;
@@ -56,16 +58,16 @@ public class Superhero {
         this.superPower = newSuperPower;
     }
 
-    public void setCreationYear(int newCreationYear) {
-        this.creationYear = newCreationYear;
+    public void setCreationYear(String newCreationYear) {
+        this.creationYear = Integer.parseInt(newCreationYear);
     }
 
     public void setIsHuman(boolean newIsHuman) {
         this.isHuman = newIsHuman;
     }
 
-    public void setPowerLevel(double newPowerLevel) {
-        this.powerLevel = newPowerLevel;
+    public void setPowerLevel(String newPowerLevel) {
+        this.powerLevel = Double.parseDouble(newPowerLevel);
     }
 }
 

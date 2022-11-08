@@ -1,18 +1,17 @@
-import java.io.FileNotFoundException;
-import java.io.IOException;
+package superhero;
+
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Userinterface {
     Scanner scanner = new Scanner(System.in);
     Controller controller = new Controller();
-    private String name; //
+    private String name;
     boolean userValgFalse = false;
 
 
     public void menu() {
-        controller.createTestData();
-
         int menuValg = 0;
 
         while (menuValg != 9) {
@@ -25,27 +24,26 @@ public class Userinterface {
             3. Søg efter superheroes
             4. Redigere superhero
             5. Slet superhero
-            6. Gem liste af superheroes 
-            7. Load liste af superheroes 
+            6. Gem liste af superheroes
+            7. Load liste af superheroes
             9. Afslut
             """);
 
 
             do {
-                String valg     = scanner.nextLine().trim();
                 try {
-                    menuValg = Integer.parseInt(valg);
-                    userValgFalse = true;
-                } catch (NumberFormatException e) {
+                    menuValg = scanner.nextInt();
+                    scanner.nextLine();
+                    startprogram(menuValg);
+                    userValgFalse = false;
+                } catch (InputMismatchException e) {
                     System.out.print("Der skete en fejl! - Indtast venligst et gyldigt nummer: ");
+                    userValgFalse = true;
                     scanner.nextLine();
                 }
 
-            } while (!userValgFalse);
-
-            startprogram(menuValg);
+            } while (userValgFalse);
         }
-
     }
     public void startprogram(int menuValg)  {
         if (menuValg == 1) {
@@ -59,23 +57,23 @@ public class Userinterface {
         } else if (menuValg == 5) {
             deleteSuperheroUserInput();
         } else if (menuValg == 6) {
-            try {
-                controller.saveData();
-            } catch (IOException e) {
-                System.out.println("Den fejlede squ! Gem ");
-            }
-
-        }else if (menuValg == 7){
-            try {
-                controller.loadData();
-            } catch (IOException e) {
-                System.out.println("Den fejlede squ");
-            }
-
+            saveData();
+        } else if (menuValg == 7){
+            loadData();
         } else if (menuValg == 9) {
             System.out.println("Programmet afsluttes");
         }
 
+    }
+
+
+    public void loadData() {
+        controller.loadData();
+        System.out.println("Data has been loaded!");
+    }
+    public void saveData(){
+        controller.saveData();
+        System.out.println("Data has been saved!");
     }
     public void createSuperhero() {
         System.out.println("-----------------------------------------------------");
@@ -95,24 +93,25 @@ public class Userinterface {
             System.out.print("Indtast venligst et navn:");
             reelName = scanner.nextLine();
         }
-        System.out.println("-----------------------------------------------------");
-        System.out.print("Er din superhelt et menneske (j/n): ");
+
 
         boolean isHuman = false;
-        while (!userValgFalse) {
-            String userAnswerHuman = scanner.next().toLowerCase();
-            if (userAnswerHuman.equals("j")) {
-                isHuman = true;
-                userValgFalse = false;
-            }
-            else if (userAnswerHuman.equals("n")) {
-                isHuman = false;
-                userValgFalse = false;
+        char userInputHumanStatus;
 
+        do {
+            System.out.println("-----------------------------------------------------");
+            System.out.print("Er din superhelt et menneske (j/n): ");
+            userInputHumanStatus = scanner.next().charAt(0);
+
+            if(userInputHumanStatus == 'j') {
+                isHuman = true;
+            } else if (userInputHumanStatus == 'n'){
+                isHuman = false;
             } else {
-                System.out.println("Skriv venligst 'j' eller 'n'");
+                System.out.println("Ugyldigt input");
             }
-        }
+        } while (userInputHumanStatus != 'j' && userInputHumanStatus != 'n' );
+
         scanner.nextLine();
 
         System.out.println("-----------------------------------------------------");
@@ -136,7 +135,7 @@ public class Userinterface {
                 System.out.println("Indtast venligst et årstal der indeholder tal: ");
             }
 
-        } while (!userValgFalse );
+        } while (!userValgFalse);
 
         System.out.println("-----------------------------------------------------");
         System.out.print("Indtast superheltens styrke (med '.' f.eks. 1.5): ");
@@ -173,19 +172,19 @@ public class Userinterface {
         System.out.println("-----------------------------------------------------");
         System.out.println("Indtast den superhelt du vil søge efter: ");
 
-            String searchTerm = scanner.nextLine();
-            for (Superhero controller1  : controller.findSuperhero(searchTerm)) {
-                System.out.println("------------------\n"
-                        + "Superheltenavn: " + controller1.getSuperHeroName() + "\n"
-                        + "Superkraft: " + controller1.getSuperPower() + "\n"
-                        + "Virkelige navn: " + controller1.getReelName() + "\n"
-                        + "Oprindelsesår: " + controller1.getCreationYear() + "\n"
-                        + "Er menneske: " + controller1.isHuman() + "\n"
-                        + "Styrke: " + controller1.getPowerLevel());
-            }
-            if (controller.findSuperhero(searchTerm).isEmpty()) {
-                System.out.println("Ingen resultat");
-            }
+        String searchTerm = scanner.nextLine();
+        for (Superhero controller1  : controller.findSuperhero(searchTerm)) {
+            System.out.println("------------------\n"
+                    + "Superheltenavn: " + controller1.getSuperHeroName() + "\n"
+                    + "Superkraft: " + controller1.getSuperPower() + "\n"
+                    + "Virkelige navn: " + controller1.getReelName() + "\n"
+                    + "Oprindelsesår: " + controller1.getCreationYear() + "\n"
+                    + "Er menneske: " + controller1.isHuman() + "\n"
+                    + "Styrke: " + controller1.getPowerLevel());
+        }
+        if (controller.findSuperhero(searchTerm).isEmpty()) {
+            System.out.println("Ingen resultat");
+        }
 
 
     }
@@ -218,7 +217,7 @@ public class Userinterface {
 
 
         do {
-            System.out.println("Superhero navn: " + editSuperhero.getSuperHeroName());
+            System.out.println("superhero.Superhero navn: " + editSuperhero.getSuperHeroName());
 
             try {
                 System.out.print("Skriv din rettelse her: ");
@@ -234,7 +233,7 @@ public class Userinterface {
         } while (!userValgFalse);
 
         do {
-            System.out.println("Superhero rigtige navn: " + editSuperhero.getReelName());
+            System.out.println("superhero.Superhero rigtige navn: " + editSuperhero.getReelName());
 
             try {
                 System.out.print("Skriv din rettelse her: ");
@@ -272,7 +271,7 @@ public class Userinterface {
                 System.out.print("Skriv din rettelse her: ");
                 String newCreationYear = scanner.nextLine().trim();
                 if (!newCreationYear.isEmpty()) {
-                    editSuperhero.setCreationYear(Integer.parseInt(newCreationYear));
+                    editSuperhero.setCreationYear(newCreationYear);
                 }
 
                 userValgFalse = true;
@@ -304,7 +303,7 @@ public class Userinterface {
                 System.out.print("Skriv din rettelse her: ");
                 String newPowerLevel = scanner.nextLine().trim();
                 if (!newPowerLevel.isEmpty()) {
-                    editSuperhero.setPowerLevel(Double.parseDouble(newPowerLevel));
+                    editSuperhero.setPowerLevel(newPowerLevel);
                 }
 
                 userValgFalse = true;
