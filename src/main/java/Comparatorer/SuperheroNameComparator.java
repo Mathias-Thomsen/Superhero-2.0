@@ -1,4 +1,7 @@
-package comparatorer;
+package Comparatorer;
+
+
+
 
 public class SuperheroNameComparator implements Comparable<SuperheroNameComparator> {
     private String superHeroName;
@@ -19,10 +22,33 @@ public class SuperheroNameComparator implements Comparable<SuperheroNameComparat
 
     @Override
     public int compareTo(SuperheroNameComparator o) {
-        return 0;
+        return creationYear - o.getCreationYear();
+
     }
+
+    public String getReelName() {
+        return reelName;
+    }
+
+    public boolean isHuman() {
+        return isHuman;
+    }
+
+    public String getSuperPower() {
+        return superPower;
+    }
+
+    public int getCreationYear() {
+        return creationYear;
+    }
+
+    public double getPowerLevel() {
+        return powerLevel;
+    }
+
     public String getSuperHeroName(){
         return superHeroName;
     }
 
 }
+
