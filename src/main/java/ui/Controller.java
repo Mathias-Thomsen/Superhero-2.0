@@ -43,8 +43,8 @@ public class Controller {
 
     public void loadData() throws IOException {
         fileHandler.loadData();
-
     }
+
 
     public String getSuperHeroName() {
         return superhero.getSuperHeroName();

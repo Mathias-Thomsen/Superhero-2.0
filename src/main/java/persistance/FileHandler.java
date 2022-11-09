@@ -1,17 +1,16 @@
 package persistance;
 
 import Superhero.Superhero;
+import comparatorer.SuperheroIsHumanComparator;
+import comparatorer.SuperheroNameComparator;
 
-import java.util.Comparator;
+import java.util.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Scanner;
-
 
 public class FileHandler {
     private ArrayList<Superhero> loadSuperheroData = new ArrayList<>();
@@ -46,8 +45,23 @@ public class FileHandler {
 
         }
         return loadSuperheroData;
-
     }
+
+
+    public void sortNameMethod() throws IOException {
+        loadData().sort(new comparatorer.SuperheroNameComparator());
+    }
+
+
+    public void primaryNameSecondaryIsHuman() throws IOException {
+        loadData().sort(new comparatorer.SuperheroNameComparator().thenComparing(new SuperheroIsHumanComparator()));
+    }
+
+    public void primarySuperNameSecondaryReelName() throws IOException {
+        loadData().sort(new comparatorer.SuperheroNameComparator());
+    }
+
+
     private Superhero parseCsvLine(String line) {
         String[] parts = line.split(";");
 
@@ -61,9 +75,6 @@ public class FileHandler {
         superheroLoadData.setPowerLevel(Integer.parseInt(parts[5]));
         return superheroLoadData;
     }
-
-
-
 
 
 }

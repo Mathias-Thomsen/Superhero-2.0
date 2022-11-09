@@ -145,7 +145,7 @@ public class Userinterface {
             Collections.sort(controller.fileHandler.loadData(), new comparatorer.SuperheroIsHumanComparator());
             printList();
         } else if (userSorteringValg == 6) {
-            Collections.sort(controller.fileHandler.loadData(), new comparatorer.SuperheroPowerLevelComparator());
+            controller.fileHandler.primaryNameSecondaryIsHuman();
             printList();
         } else if (userSorteringValg == 9) {
             startprogram(userSorteringValg);
