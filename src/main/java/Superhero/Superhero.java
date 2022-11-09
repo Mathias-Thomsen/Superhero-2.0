@@ -1,4 +1,4 @@
-package superhero;
+package Superhero;
 
 public class Superhero {
     private String superHeroName;

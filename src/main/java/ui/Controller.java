@@ -1,8 +1,12 @@
-package superhero;
+package ui;
+
+import persistance.Database;
+import persistance.FileHandler;
+import Superhero.Superhero;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
-
 
 public class Controller {
     Database database = new Database();
@@ -29,6 +33,8 @@ public class Controller {
 
 
 
+
+
     public void saveData()  {
         try {
             fileHandler.saveData(database.getSuperheroes());
@@ -36,6 +42,7 @@ public class Controller {
             System.out.println("File do not exist");
         }
     }
+
 
     public void loadData() {
         try {
@@ -47,9 +54,6 @@ public class Controller {
         }
 
     }
-
-
-
 
 
     public String getSuperHeroName() {
@@ -76,3 +80,4 @@ public class Controller {
         return superhero.getPowerLevel();
     }
 }
+

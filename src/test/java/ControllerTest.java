@@ -1,8 +1,8 @@
+import Superhero.Superhero;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import superhero.Controller;
-import superhero.Database;
-import superhero.Superhero;
+import persistance.Database;
+import ui.Controller;
 
 import java.util.ArrayList;
 
@@ -16,7 +16,7 @@ class ControllerTest {
     @BeforeEach
     public void setup() {
         database = new Database();
-        database.createTestData();
+
     }
 
 
@@ -56,7 +56,7 @@ class ControllerTest {
     public void CreateTestDataTest() {
         //Arrange
         //Act
-        database.createTestData();
+
         //Assert
 
     }
@@ -67,7 +67,7 @@ class ControllerTest {
         Controller controller = new Controller();
 
         //Act
-        database.createTestData();
+
 
         ArrayList<Superhero> result = database.findSuperhero("Batman");
 
@@ -86,7 +86,7 @@ class ControllerTest {
         Controller controller = new Controller();
 
         //Act
-        database.createTestData();
+
 
         ArrayList<Superhero> result = database.findSuperhero("Batman");
         int actualSize = result.size();

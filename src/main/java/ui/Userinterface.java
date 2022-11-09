@@ -1,7 +1,12 @@
-package superhero;
+package ui;
 
+import Superhero.Superhero;
+import Comparatorer.SuperheroPowerLevelComparator;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Userinterface {
@@ -12,6 +17,8 @@ public class Userinterface {
 
 
     public void menu() {
+
+
         int menuValg = 0;
 
         while (menuValg != 9) {
@@ -24,26 +31,28 @@ public class Userinterface {
             3. Søg efter superheroes
             4. Redigere superhero
             5. Slet superhero
-            6. Gem liste af superheroes
+            6. Gem liste af superheroes 
             7. Load liste af superheroes
+            8. Sort database of superheroes
             9. Afslut
             """);
 
 
             do {
+                String valg = scanner.nextLine().trim();
                 try {
-                    menuValg = scanner.nextInt();
-                    scanner.nextLine();
-                    startprogram(menuValg);
-                    userValgFalse = false;
-                } catch (InputMismatchException e) {
-                    System.out.print("Der skete en fejl! - Indtast venligst et gyldigt nummer: ");
+                    menuValg = Integer.parseInt(valg);
                     userValgFalse = true;
+                } catch (NumberFormatException e) {
+                    System.out.print("Der skete en fejl! - Indtast venligst et gyldigt nummer: ");
                     scanner.nextLine();
                 }
 
-            } while (userValgFalse);
+            } while (!userValgFalse);
+
+            startprogram(menuValg);
         }
+
     }
     public void startprogram(int menuValg)  {
         if (menuValg == 1) {
@@ -57,23 +66,96 @@ public class Userinterface {
         } else if (menuValg == 5) {
             deleteSuperheroUserInput();
         } else if (menuValg == 6) {
-            saveData();
-        } else if (menuValg == 7){
-            loadData();
-        } else if (menuValg == 9) {
+            controller.saveData();
+
+
+
+
+        }else if (menuValg == 7){
+            controller.loadData();
+
+
+        } else if (menuValg == 8){
+            try {
+                sortingMenu();
+            }catch (IOException e){
+                System.out.println("Den fejlede");
+            }
+
+        }else if (menuValg == 9) {
             System.out.println("Programmet afsluttes");
         }
 
     }
+    public void sortingMenu() throws IOException {
+        int userSorteringsValg = 0;
+        System.out.println("""
+                -----------------------
+                Vælg sorterings metode:
+                -----------------------
+                1. Sorter efter superhero navn
+                2. Sorter efter superkrafter
+                3. Sorter efter rigtige navn
+                4. Sorter efter oprindelses år
+                5. Sorter efter menneske
+                6. Sorter efter styrke
+                9. Gå tilbage til menu
+                """);
+        do {
+            String sorteringsvalg = scanner.nextLine().trim();
+            try {
+                userSorteringsValg = Integer.parseInt(sorteringsvalg);
+                userValgFalse = true;
+            } catch (NumberFormatException e) {
+                System.out.print("Der skete en fejl! - Indtast venligst et gyldigt nummer: ");
+                scanner.nextLine();
+            }
 
+        } while (!userValgFalse);
+        vælgSortingMetode(userSorteringsValg);
+    }
+    public void printList() throws IOException {
+        for (Superhero controller : controller.getSuperheroes()) {
+            System.out.println("------------------\n"
+                    + "Superheltenavn: " + controller.getSuperHeroName() + "\n"
+                    + "Superkraft: " + controller.getSuperPower() + "\n"
+                    + "Virkelige navn: " + controller.getReelName() + "\n"
+                    + "Oprindelsesår: " + controller.getCreationYear() + "\n"
+                    + "Er menneske: " + controller.isHuman() + "\n"
+                    + "Styrke: " + controller.getPowerLevel());
+        }
+    }
+    public void vælgSortingMetode(int userSorteringValg) throws IOException {
+        if (userSorteringValg == 1) {
+            Collections.sort(controller.getSuperheroes(), new Comparatorer.SuperheroNameComparator());
+            printList();
+        } else if (userSorteringValg == 2) {
+            Collections.sort(controller.getSuperheroes(), new Comparatorer.SuperheroSuperPowerComparator());
+            printList();
+        } else if (userSorteringValg == 3) {
+            Collections.sort(controller.getSuperheroes(), new Comparatorer.SuperheroReelNameComparator());
+            printList();
+        } else if (userSorteringValg == 4) {
+            Collections.sort(controller.getSuperheroes(), new Comparatorer.SuperheroCreationYearComparator());
+            printList();
+        } else if (userSorteringValg == 5) {
+            Collections.sort(controller.getSuperheroes(), new Comparatorer.SuperheroIsHumanComparator());
+            printList();
+        } else if (userSorteringValg == 6) {
+            Collections.sort(controller.getSuperheroes(), new SuperheroPowerLevelComparator());
+            printList();
+        } else if (userSorteringValg == 9) {
+            startprogram(userSorteringValg);
+        }
+        menu();
+    }
+
+    public void saveData() {
+        controller.saveData();
+    }
 
     public void loadData() {
         controller.loadData();
-        System.out.println("Data has been loaded!");
-    }
-    public void saveData(){
-        controller.saveData();
-        System.out.println("Data has been saved!");
     }
     public void createSuperhero() {
         System.out.println("-----------------------------------------------------");
@@ -93,25 +175,24 @@ public class Userinterface {
             System.out.print("Indtast venligst et navn:");
             reelName = scanner.nextLine();
         }
-
+        System.out.println("-----------------------------------------------------");
+        System.out.print("Er din superhelt et menneske (j/n): ");
 
         boolean isHuman = false;
-        char userInputHumanStatus;
-
-        do {
-            System.out.println("-----------------------------------------------------");
-            System.out.print("Er din superhelt et menneske (j/n): ");
-            userInputHumanStatus = scanner.next().charAt(0);
-
-            if(userInputHumanStatus == 'j') {
+        while (!userValgFalse) {
+            String userAnswerHuman = scanner.next().toLowerCase();
+            if (userAnswerHuman.equals("j")) {
                 isHuman = true;
-            } else if (userInputHumanStatus == 'n'){
-                isHuman = false;
-            } else {
-                System.out.println("Ugyldigt input");
+                userValgFalse = false;
             }
-        } while (userInputHumanStatus != 'j' && userInputHumanStatus != 'n' );
+            else if (userAnswerHuman.equals("n")) {
+                isHuman = false;
+                userValgFalse = false;
 
+            } else {
+                System.out.println("Skriv venligst 'j' eller 'n'");
+            }
+        }
         scanner.nextLine();
 
         System.out.println("-----------------------------------------------------");
@@ -135,7 +216,7 @@ public class Userinterface {
                 System.out.println("Indtast venligst et årstal der indeholder tal: ");
             }
 
-        } while (!userValgFalse);
+        } while (!userValgFalse );
 
         System.out.println("-----------------------------------------------------");
         System.out.print("Indtast superheltens styrke (med '.' f.eks. 1.5): ");
@@ -172,19 +253,19 @@ public class Userinterface {
         System.out.println("-----------------------------------------------------");
         System.out.println("Indtast den superhelt du vil søge efter: ");
 
-        String searchTerm = scanner.nextLine();
-        for (Superhero controller1  : controller.findSuperhero(searchTerm)) {
+            String searchTerm = scanner.nextLine();
+        for (Superhero controller : controller.getSuperheroes()) {
             System.out.println("------------------\n"
-                    + "Superheltenavn: " + controller1.getSuperHeroName() + "\n"
-                    + "Superkraft: " + controller1.getSuperPower() + "\n"
-                    + "Virkelige navn: " + controller1.getReelName() + "\n"
-                    + "Oprindelsesår: " + controller1.getCreationYear() + "\n"
-                    + "Er menneske: " + controller1.isHuman() + "\n"
-                    + "Styrke: " + controller1.getPowerLevel());
+                    + "Superheltenavn: " + controller.getSuperHeroName() + "\n"
+                    + "Superkraft: " + controller.getSuperPower() + "\n"
+                    + "Virkelige navn: " + controller.getReelName() + "\n"
+                    + "Oprindelsesår: " + controller.getCreationYear() + "\n"
+                    + "Er menneske: " + controller.isHuman() + "\n"
+                    + "Styrke: " + controller.getPowerLevel());
         }
-        if (controller.findSuperhero(searchTerm).isEmpty()) {
-            System.out.println("Ingen resultat");
-        }
+            if (controller.findSuperhero(searchTerm).isEmpty()) {
+                System.out.println("Ingen resultat");
+            }
 
 
     }
@@ -217,7 +298,7 @@ public class Userinterface {
 
 
         do {
-            System.out.println("superhero.Superhero navn: " + editSuperhero.getSuperHeroName());
+            System.out.println("Classes.Superhero navn: " + editSuperhero.getSuperHeroName());
 
             try {
                 System.out.print("Skriv din rettelse her: ");
@@ -233,7 +314,7 @@ public class Userinterface {
         } while (!userValgFalse);
 
         do {
-            System.out.println("superhero.Superhero rigtige navn: " + editSuperhero.getReelName());
+            System.out.println("Classes.Superhero rigtige navn: " + editSuperhero.getReelName());
 
             try {
                 System.out.print("Skriv din rettelse her: ");

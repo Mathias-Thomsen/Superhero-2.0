@@ -1,9 +1,13 @@
-package superhero;
+package persistance;
+
+import Superhero.Superhero;
 
 import java.util.ArrayList;
 
 public class Database {
     public ArrayList<Superhero> superheroes = new ArrayList<>();
+
+
 
     public void createSuperHero(String superHeroName, String reelName, boolean isHuman, String superPower, int creationYear, double powerLevel) {
         Superhero newSuperHero = new Superhero(superHeroName, reelName, isHuman, superPower, creationYear, powerLevel);
@@ -12,9 +16,6 @@ public class Database {
     }
     public ArrayList<Superhero> getSuperheroes() {
         return superheroes;
-    }
-    public void clearData() {
-        superheroes.clear();
     }
 
     public ArrayList<Superhero> findSuperhero(String searchTerm){
@@ -33,8 +34,11 @@ public class Database {
         return result;
 
     }
-}
 
+    public void clearData(){
+       superheroes.clear();
+    }
+}
 
 
 
