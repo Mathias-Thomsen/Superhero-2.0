@@ -2,8 +2,6 @@ package persistance;
 
 import Superhero.Superhero;
 
-import Comparatorer.SuperheroNameComparator;
-
 import java.util.Comparator;
 
 import java.io.File;
@@ -13,20 +11,6 @@ import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-
-class NameComparator implements Comparator<SuperheroNameComparator>{
-
-    public int compare(SuperheroNameComparator o1, SuperheroNameComparator o2) {
-        return o1.getSuperHeroName().compareTo(o2.getSuperHeroName());
-    }
-}
-
-class CreationYearComparator implements Comparator<SuperheroNameComparator>{
-    public int compare(SuperheroNameComparator o1, SuperheroNameComparator o2) {
-        return o1.getCreationYear() - o2.getCreationYear();
-    }
-}
 
 
 public class FileHandler {

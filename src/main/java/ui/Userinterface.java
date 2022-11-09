@@ -1,7 +1,6 @@
 package ui;
 
 import Superhero.Superhero;
-import comparatorer.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -131,22 +130,22 @@ public class Userinterface {
     }
     public void vælgSortingMetode(int userSorteringValg) throws IOException {
         if (userSorteringValg == 1) {
-            Collections.sort(controller.fileHandler.loadData(), new SuperheroNameComparator());
+            Collections.sort(controller.fileHandler.loadData(), new comparatorer.SuperheroNameComparator());
             printList();
         } else if (userSorteringValg == 2) {
-            Collections.sort(controller.fileHandler.loadData(), new SuperheroSuperPowerComparator());
+            Collections.sort(controller.fileHandler.loadData(), new comparatorer.SuperheroSuperPowerComparator());
             printList();
         } else if (userSorteringValg == 3) {
-            Collections.sort(controller.fileHandler.loadData(), new SuperheroReelNameComparator());
+            Collections.sort(controller.fileHandler.loadData(), new comparatorer.SuperheroReelNameComparator());
             printList();
         } else if (userSorteringValg == 4) {
-            Collections.sort(controller.fileHandler.loadData(), new SuperheroCreationYearComparator());
+            Collections.sort(controller.fileHandler.loadData(), new comparatorer.SuperheroCreationYearComparator());
             printList();
         } else if (userSorteringValg == 5) {
-            Collections.sort(controller.fileHandler.loadData(), new SuperheroIsHumanComparator());
+            Collections.sort(controller.fileHandler.loadData(), new comparatorer.SuperheroIsHumanComparator());
             printList();
         } else if (userSorteringValg == 6) {
-            Collections.sort(controller.fileHandler.loadData(), new SuperheroPowerLevelComparator());
+            Collections.sort(controller.fileHandler.loadData(), new comparatorer.SuperheroPowerLevelComparator());
             printList();
         } else if (userSorteringValg == 9) {
             startprogram(userSorteringValg);
