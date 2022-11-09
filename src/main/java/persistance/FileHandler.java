@@ -3,6 +3,7 @@ package persistance;
 import Superhero.Superhero;
 import Comparatorer.SuperheroIsHumanComparator;
 import Comparatorer.SuperheroNameComparator;
+import ui.Controller;
 
 import java.util.*;
 
@@ -71,7 +72,7 @@ public class FileHandler {
 //    public void sortNameMethod() throws IOException {
 //
 //
-//        .sort(new comparatorer.SuperheroNameComparator());
+//        Collections.sort();
 //    }
 //
 //

@@ -1,8 +1,11 @@
 package persistance;
 
+import Comparatorer.*;
 import Superhero.Superhero;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Database {
     public ArrayList<Superhero> superheroes = new ArrayList<>();
@@ -38,6 +41,35 @@ public class Database {
     public void clearData(){
        superheroes.clear();
     }
+
+    public void sortNameMethod() throws IOException {
+        superheroes.sort(new SuperheroNameComparator());
+    }
+
+    public void sortSuperPower(){
+        superheroes.sort(new SuperheroSuperPowerComparator());
+    }
+
+    public void sortSuperHeroRealName(){
+        superheroes.sort(new SuperheroReelNameComparator());
+    }
+
+    public void sortCreationYear(){
+        superheroes.sort(new SuperheroCreationYearComparator());
+    }
+
+    public void sortIsHuman(){
+        superheroes.sort(new SuperheroIsHumanComparator());
+    }
+
+    public void sortPower(){
+        superheroes.sort(new SuperheroPowerLevelComparator());
+    }
+
+    public void primaryNameSecondaryRealName(){
+        superheroes.sort(new SuperheroNameComparator().thenComparing(new SuperheroReelNameComparator()));
+    }
+
 }
 
 

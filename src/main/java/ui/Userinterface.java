@@ -127,22 +127,22 @@ public class Userinterface {
     }
     public void vælgSortingMetode(int userSorteringValg) throws IOException {
         if (userSorteringValg == 1) {
-            Collections.sort(controller.getSuperheroes(), new Comparatorer.SuperheroNameComparator());
+            controller.getSortNameMethod();
             printList();
         } else if (userSorteringValg == 2) {
-            Collections.sort(controller.getSuperheroes(), new Comparatorer.SuperheroSuperPowerComparator());
+            controller.getSortSuperPower();
             printList();
         } else if (userSorteringValg == 3) {
-            Collections.sort(controller.getSuperheroes(), new Comparatorer.SuperheroReelNameComparator());
+            controller.getSuperHerorealName();
             printList();
         } else if (userSorteringValg == 4) {
-            Collections.sort(controller.getSuperheroes(), new Comparatorer.SuperheroCreationYearComparator());
+            controller.getSortCreationYear();
             printList();
         } else if (userSorteringValg == 5) {
-            Collections.sort(controller.getSuperheroes(), new Comparatorer.SuperheroIsHumanComparator());
+            controller.getSortIsHuman();
             printList();
         } else if (userSorteringValg == 6) {
-            Collections.sort(controller.getSuperheroes(), new SuperheroPowerLevelComparator());
+            controller.getSortPower();
             printList();
         } else if (userSorteringValg == 9) {
             startprogram(userSorteringValg);

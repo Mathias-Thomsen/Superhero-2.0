@@ -31,9 +31,33 @@ public class Controller {
 
     }
 
+    public void getSortNameMethod() throws IOException {
+        database.sortNameMethod();
+    }
 
+    public void getSortSuperPower(){
+        database.sortSuperPower();
+    }
 
+    public void getSuperHerorealName(){
+        database.sortSuperHeroRealName();
+    }
 
+    public void getSortCreationYear(){
+        database.sortCreationYear();
+    }
+
+    public void getSortIsHuman(){
+        database.sortIsHuman();
+    }
+
+    public void getSortPower(){
+        database.sortPower();
+    }
+
+    public void getPrimaryNameSecondaryRealName(){
+        database.primaryNameSecondaryRealName();
+    }
 
     public void saveData()  {
         try {
