@@ -150,13 +150,6 @@ public class Userinterface {
         menu();
     }
 
-    public void saveData() {
-        controller.saveData();
-    }
-
-    public void loadData() {
-        controller.loadData();
-    }
     public void createSuperhero() {
         System.out.println("-----------------------------------------------------");
         System.out.print("Indtast navnet på din superhelt (fx Spiderman): ");
