@@ -8,13 +8,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Database {
+    private boolean change = false;
+
+
+
     public ArrayList<Superhero> superheroes = new ArrayList<>();
+
 
 
 
     public void createSuperHero(String superHeroName, String reelName, boolean isHuman, String superPower, int creationYear, double powerLevel) {
         Superhero newSuperHero = new Superhero(superHeroName, reelName, isHuman, superPower, creationYear, powerLevel);
         superheroes.add(newSuperHero);
+
+        change = true; // To the save method, so we only save to the txt file if a change has been made.
 
     }
     public ArrayList<Superhero> getSuperheroes() {
@@ -34,7 +41,17 @@ public class Database {
     public boolean deleteSuperhero(Superhero superhero) {
         boolean result = superheroes.remove(superhero);
 
+        change = true;
+
         return result;
+    }
+
+    public boolean isChange() {
+        return change;
+    }
+
+    public void setChange(boolean change) {
+        this.change = change;
 
     }
 

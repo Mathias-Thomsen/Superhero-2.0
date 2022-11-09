@@ -1,20 +1,13 @@
 package persistance;
 
 import Superhero.Superhero;
-import Comparatorer.SuperheroIsHumanComparator;
-import Comparatorer.SuperheroNameComparator;
-import ui.Controller;
-
 import java.util.*;
-
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.PrintStream;
-import java.nio.charset.StandardCharsets;
+
 
 public class FileHandler {
-    private ArrayList<Superhero> loadSuperheroData = new ArrayList<>();
     public void saveData(ArrayList<Superhero> superheroes) throws FileNotFoundException {
         PrintStream output = new PrintStream(new File("data\\superheroes.csv"));
 
@@ -55,7 +48,7 @@ public class FileHandler {
             Superhero superheroLoadData = new Superhero();
             superheroLoadData.setSuperheroName(parts[0]);
             superheroLoadData.setReelName(parts[1]);
-            //superheroLoadData.setIsHuman(parts[2]);
+            superheroLoadData.setIsHuman(Boolean.parseBoolean(parts[2]));
             superheroLoadData.setSuperPower(parts[3]);
             superheroLoadData.setCreationYear(parts[4]);
             superheroLoadData.setPowerLevel(parts[5]);
@@ -66,26 +59,6 @@ public class FileHandler {
             return null;
         }
     }
-
-
-
-//    public void sortNameMethod() throws IOException {
-//
-//
-//        Collections.sort();
-//    }
-//
-//
-//    public void primaryNameSecondaryIsHuman() throws IOException {
-//        loadData().sort(new comparatorer.SuperheroNameComparator().thenComparing(new SuperheroIsHumanComparator()));
-//    }
-//
-//    public void primarySuperNameSecondaryReelName() throws IOException {
-//        loadData().sort(new comparatorer.SuperheroNameComparator());
-//    }
-
-
-
 
 
 }

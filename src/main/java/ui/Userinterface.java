@@ -1,12 +1,8 @@
 package ui;
 
 import Superhero.Superhero;
-import Comparatorer.SuperheroPowerLevelComparator;
-
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Scanner;
 
 public class Userinterface {
@@ -66,13 +62,10 @@ public class Userinterface {
         } else if (menuValg == 5) {
             deleteSuperheroUserInput();
         } else if (menuValg == 6) {
-            controller.saveData();
-
-
-
+            saveData();
 
         }else if (menuValg == 7){
-            controller.loadData();
+            loadData();
 
 
         } else if (menuValg == 8){
@@ -149,7 +142,18 @@ public class Userinterface {
         }
         menu();
     }
-
+    public void saveData() {
+        if(controller.isChange()) {
+            controller.saveData();
+            System.out.println("Data has been saved to the system!");
+        } else {
+            System.out.println("Data not saved. No change has been made!");
+        }
+    }
+    public void loadData() {
+        controller.loadData();
+        System.out.println("Data has been loaded to the system!");
+    }
     public void createSuperhero() {
         System.out.println("-----------------------------------------------------");
         System.out.print("Indtast navnet på din superhelt (fx Spiderman): ");
@@ -168,24 +172,23 @@ public class Userinterface {
             System.out.print("Indtast venligst et navn:");
             reelName = scanner.nextLine();
         }
-        System.out.println("-----------------------------------------------------");
-        System.out.print("Er din superhelt et menneske (j/n): ");
 
         boolean isHuman = false;
-        while (!userValgFalse) {
-            String userAnswerHuman = scanner.next().toLowerCase();
-            if (userAnswerHuman.equals("j")) {
+        char humanStatus;
+        do {
+            System.out.println("-----------------------------------------------------");
+            System.out.print("Er din superhelt et menneske (j/n): ");
+            humanStatus = scanner.next().charAt(0);
+            if (humanStatus == 'j') {
                 isHuman = true;
-                userValgFalse = false;
-            }
-            else if (userAnswerHuman.equals("n")) {
+            } else if (humanStatus == 'n') {
                 isHuman = false;
-                userValgFalse = false;
-
             } else {
-                System.out.println("Skriv venligst 'j' eller 'n'");
+                System.out.println("ugyldigt input");
             }
-        }
+        } while (humanStatus != 'j' && humanStatus != 'n');
+
+
         scanner.nextLine();
 
         System.out.println("-----------------------------------------------------");
@@ -385,6 +388,8 @@ public class Userinterface {
                 System.out.println("Skriv venligst din rettelse med kommatal (f.eks. 1,5) eller ENTER hvis du ikke vil rette!");
             }
         } while (!userValgFalse);
+
+        controller.setChange(true); // set change to true if the editMethod is running and a change has been made.
 
     }
     public void deleteSuperheroUserInput(){

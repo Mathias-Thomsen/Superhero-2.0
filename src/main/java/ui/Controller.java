@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Controller {
     Database database = new Database();
     FileHandler fileHandler = new FileHandler();
-    Superhero superhero;
+
 
 
     public void createSuperHero(String superHeroName, String reelName, boolean isHuman, String superPower, int creationYear, double styrke) {
@@ -67,6 +67,14 @@ public class Controller {
         }
     }
 
+    public boolean isChange(){
+        return database.isChange();
+    }
+
+    public void setChange(boolean change){
+        database.setChange(change);
+    }
+
 
     public void loadData() {
         try {
@@ -76,32 +84,7 @@ public class Controller {
         catch (FileNotFoundException e) {
             System.out.println("File do not exist");
         }
-
     }
 
-
-    public String getSuperHeroName() {
-        return superhero.getSuperHeroName();
-    }
-
-    public String getSuperPower() {
-        return superhero.getSuperPower();
-    }
-
-    public String getReelName() {
-        return superhero.getReelName();
-    }
-
-    public int getCreationYear() {
-        return superhero.getCreationYear();
-    }
-
-    public boolean isHuman() {
-        return superhero.isHuman();
-    }
-
-    public double getPowerLevel() {
-        return superhero.getPowerLevel();
-    }
 }
 
