@@ -1,16 +1,18 @@
 package ui;
 
 import Superhero.Superhero;
+import comparatorer.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Userinterface {
     Scanner scanner = new Scanner(System.in);
     Controller controller = new Controller();
-    private String name; //
+    private String name;
     boolean userValgFalse = false;
 
 
@@ -78,26 +80,29 @@ public class Userinterface {
             }
 
         } else if (menuValg == 8){
-            sortingMenu();
+            try {
+                sortingMenu();
+            }catch (IOException e){
+                System.out.println("Den fejlede");
+            }
 
         }else if (menuValg == 9) {
             System.out.println("Programmet afsluttes");
         }
 
     }
-    public void sortingMenu(){
+    public void sortingMenu() throws IOException {
         int userSorteringsValg = 0;
-
         System.out.println("""
                 -----------------------
                 Vælg sorterings metode:
                 -----------------------
                 1. Sorter efter superhero navn
-                2. Sorter efter rigtige navn
-                3. Sorter efter menneske
-                4. Sorter efter superkrafter
-                5. Sorter efter oprindelses år
-                6. Sorter efter power level
+                2. Sorter efter superkrafter
+                3. Sorter efter rigtige navn
+                4. Sorter efter oprindelses år
+                5. Sorter efter menneske
+                6. Sorter efter styrke
                 9. Gå tilbage til menu
                 """);
         do {
@@ -113,25 +118,41 @@ public class Userinterface {
         } while (!userValgFalse);
         vælgSortingMetode(userSorteringsValg);
     }
-    public void vælgSortingMetode(int userSorteringValg)  {
+    public void printList() throws IOException {
+        for (Superhero controller : controller.fileHandler.loadData()) {
+            System.out.println("------------------\n"
+                    + "Superheltenavn: " + controller.getSuperHeroName() + "\n"
+                    + "Superkraft: " + controller.getSuperPower() + "\n"
+                    + "Virkelige navn: " + controller.getReelName() + "\n"
+                    + "Oprindelsesår: " + controller.getCreationYear() + "\n"
+                    + "Er menneske: " + controller.isHuman() + "\n"
+                    + "Styrke: " + controller.getPowerLevel());
+        }
+    }
+    public void vælgSortingMetode(int userSorteringValg) throws IOException {
         if (userSorteringValg == 1) {
-            System.out.println("sortere ud fra navn");
+            Collections.sort(controller.fileHandler.loadData(), new SuperheroNameComparator());
+            printList();
         } else if (userSorteringValg == 2) {
-            System.out.println("sortere ud fra rigtige navn");
+            Collections.sort(controller.fileHandler.loadData(), new SuperheroSuperPowerComparator());
+            printList();
         } else if (userSorteringValg == 3) {
-            System.out.println("sortere ud fra menneske");
+            Collections.sort(controller.fileHandler.loadData(), new SuperheroReelNameComparator());
+            printList();
         } else if (userSorteringValg == 4) {
-            System.out.println("sortere ud fra superkrafter");
+            Collections.sort(controller.fileHandler.loadData(), new SuperheroCreationYearComparator());
+            printList();
         } else if (userSorteringValg == 5) {
-            System.out.println("sortere ud fra oprindelses år");
+            Collections.sort(controller.fileHandler.loadData(), new SuperheroIsHumanComparator());
+            printList();
         } else if (userSorteringValg == 6) {
-            System.out.println("sortere ud fra navn");
+            Collections.sort(controller.fileHandler.loadData(), new SuperheroPowerLevelComparator());
+            printList();
         } else if (userSorteringValg == 9) {
             startprogram(userSorteringValg);
         }
-
+        menu();
     }
-
     public void createSuperhero() {
         System.out.println("-----------------------------------------------------");
         System.out.print("Indtast navnet på din superhelt (fx Spiderman): ");
@@ -229,15 +250,15 @@ public class Userinterface {
         System.out.println("Indtast den superhelt du vil søge efter: ");
 
             String searchTerm = scanner.nextLine();
-            for (Superhero controller1  : controller.findSuperhero(searchTerm)) {
-                System.out.println("------------------\n"
-                        + "Superheltenavn: " + controller1.getSuperHeroName() + "\n"
-                        + "Superkraft: " + controller1.getSuperPower() + "\n"
-                        + "Virkelige navn: " + controller1.getReelName() + "\n"
-                        + "Oprindelsesår: " + controller1.getCreationYear() + "\n"
-                        + "Er menneske: " + controller1.isHuman() + "\n"
-                        + "Styrke: " + controller1.getPowerLevel());
-            }
+        for (Superhero controller : controller.getSuperheroes()) {
+            System.out.println("------------------\n"
+                    + "Superheltenavn: " + controller.getSuperHeroName() + "\n"
+                    + "Superkraft: " + controller.getSuperPower() + "\n"
+                    + "Virkelige navn: " + controller.getReelName() + "\n"
+                    + "Oprindelsesår: " + controller.getCreationYear() + "\n"
+                    + "Er menneske: " + controller.isHuman() + "\n"
+                    + "Styrke: " + controller.getPowerLevel());
+        }
             if (controller.findSuperhero(searchTerm).isEmpty()) {
                 System.out.println("Ingen resultat");
             }
