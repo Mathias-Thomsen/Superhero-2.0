@@ -1,4 +1,4 @@
-package comparatorer;
+package Comparatorer;
 
 import Superhero.Superhero;
 
