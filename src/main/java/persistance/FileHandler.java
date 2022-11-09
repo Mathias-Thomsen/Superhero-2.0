@@ -1,7 +1,8 @@
 package persistance;
 
 import Superhero.Superhero;
-
+import Comparatorer.SuperheroIsHumanComparator;
+import Comparatorer.SuperheroNameComparator;
 
 import java.util.*;
 
@@ -36,44 +37,54 @@ public class FileHandler {
     }
 
 
-    public ArrayList<Superhero> loadData() throws IOException {
-        Scanner reader = new Scanner(new File("data\\superheroes"), StandardCharsets.ISO_8859_1);
-        while(reader.hasNextLine()){
+    public void loadData(ArrayList<Superhero> allSuperheroes) throws FileNotFoundException {
+
+        Scanner reader = new Scanner(new File("data/superheroes.csv"));
+        while(reader.hasNextLine()) {
             String line = reader.nextLine();
-            loadSuperheroData.add(parseCsvLine(line));
 
+            Superhero dataObjekt = parseCsvLine(line);
+            allSuperheroes.add(dataObjekt);
         }
-        return loadSuperheroData;
     }
-
-
-    public void sortNameMethod() throws IOException {
-        loadData().sort(new comparatorer.SuperheroNameComparator());
-    }
-
-
-    public void primaryNameSecondaryIsHuman() throws IOException {
-        loadData().sort(new comparatorer.SuperheroNameComparator().thenComparing(new SuperheroIsHumanComparator()));
-    }
-
-    public void primarySuperNameSecondaryReelName() throws IOException {
-        loadData().sort(new comparatorer.SuperheroNameComparator());
-    }
-
-
     private Superhero parseCsvLine(String line) {
-        String[] parts = line.split(";");
+        try {
+            String[] parts = line.split(";");
 
-        Superhero superheroLoadData = new Superhero();
-        superheroLoadData.setReelName(parts[0]);
+            Superhero superheroLoadData = new Superhero();
+            superheroLoadData.setSuperheroName(parts[0]);
+            superheroLoadData.setReelName(parts[1]);
+            //superheroLoadData.setIsHuman(parts[2]);
+            superheroLoadData.setSuperPower(parts[3]);
+            superheroLoadData.setCreationYear(parts[4]);
+            superheroLoadData.setPowerLevel(parts[5]);
+            return superheroLoadData;
 
-        superheroLoadData.setReelName(parts[1]);
-        superheroLoadData.setIsHuman(Boolean.parseBoolean(parts[2]));
-        superheroLoadData.setSuperPower(parts[3]);
-        superheroLoadData.setCreationYear(Integer.parseInt(parts[4]));
-        superheroLoadData.setPowerLevel(Integer.parseInt(parts[5]));
-        return superheroLoadData;
+        } catch (NumberFormatException e ){
+            System.out.println("Kan ikke loade data");
+            return null;
+        }
     }
+
+
+
+//    public void sortNameMethod() throws IOException {
+//
+//
+//        .sort(new comparatorer.SuperheroNameComparator());
+//    }
+//
+//
+//    public void primaryNameSecondaryIsHuman() throws IOException {
+//        loadData().sort(new comparatorer.SuperheroNameComparator().thenComparing(new SuperheroIsHumanComparator()));
+//    }
+//
+//    public void primarySuperNameSecondaryReelName() throws IOException {
+//        loadData().sort(new comparatorer.SuperheroNameComparator());
+//    }
+
+
+
 
 
 }
