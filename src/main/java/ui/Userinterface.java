@@ -12,7 +12,7 @@ public class Userinterface {
     boolean userValgFalse = false;
 
 
-    public void menu() {
+    public void menu() throws IOException {
 
 
         int menuValg = 0;
@@ -50,11 +50,11 @@ public class Userinterface {
         }
 
     }
-    public void startprogram(int menuValg)  {
+    public void startprogram(int menuValg) throws IOException {
         if (menuValg == 1) {
             createSuperhero();
         } else if (menuValg == 2) {
-            showListOfSuperheroes();
+             printList();
         } else if (menuValg == 3) {
             searchSuperhero();
         } else if (menuValg == 4) {
@@ -109,12 +109,19 @@ public class Userinterface {
     }
     public void printList() throws IOException {
         for (Superhero controller : controller.getSuperheroes()) {
+            String yesOrNo = null;
+            if (controller.isHuman()){
+                yesOrNo = "Yes";
+            } else {
+                yesOrNo = "No";
+            }
+
             System.out.println("------------------\n"
                     + "Superheltenavn: " + controller.getSuperHeroName() + "\n"
                     + "Superkraft: " + controller.getSuperPower() + "\n"
                     + "Virkelige navn: " + controller.getReelName() + "\n"
                     + "Oprindelsesår: " + controller.getCreationYear() + "\n"
-                    + "Er menneske: " + controller.isHuman() + "\n"
+                    + "Er menneske: " + yesOrNo + "\n"
                     + "Styrke: " + controller.getPowerLevel());
         }
     }
@@ -232,31 +239,25 @@ public class Userinterface {
 
         controller.createSuperHero(superHeroName, reelName, isHuman, superPower, creationYear, styrke);
     }
-    public void showListOfSuperheroes() {
-        System.out.println("Liste af superhelte: ");
-        for (Superhero controller : controller.getSuperheroes()) {
-            System.out.println("------------------\n"
-                    + "Superheltenavn: " + controller.getSuperHeroName() + "\n"
-                    + "Superkraft: " + controller.getSuperPower() + "\n"
-                    + "Virkelige navn: " + controller.getReelName() + "\n"
-                    + "Oprindelsesår: " + controller.getCreationYear() + "\n"
-                    + "Er menneske: " + controller.isHuman() + "\n"
-                    + "Styrke: " + controller.getPowerLevel());
-        }
-
-    }
     public void searchSuperhero() {
         System.out.println("-----------------------------------------------------");
         System.out.println("Indtast den superhelt du vil søge efter: ");
 
             String searchTerm = scanner.nextLine();
         for (Superhero controller : controller.getSuperheroes()) {
+            String yesOrNo = null;
+            if (controller.isHuman()){
+                yesOrNo = "Yes";
+            } else {
+                yesOrNo = "No";
+            }
+
             System.out.println("------------------\n"
                     + "Superheltenavn: " + controller.getSuperHeroName() + "\n"
                     + "Superkraft: " + controller.getSuperPower() + "\n"
                     + "Virkelige navn: " + controller.getReelName() + "\n"
                     + "Oprindelsesår: " + controller.getCreationYear() + "\n"
-                    + "Er menneske: " + controller.isHuman() + "\n"
+                    + "Er menneske: " + yesOrNo + "\n"
                     + "Styrke: " + controller.getPowerLevel());
         }
             if (controller.findSuperhero(searchTerm).isEmpty()) {

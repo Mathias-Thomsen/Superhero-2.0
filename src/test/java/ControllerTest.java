@@ -45,7 +45,7 @@ class ControllerTest {
 
         //Act
 
-        int expected = 7;
+        int expected = 4;
         int actual = database.getSuperheroes().size();
 
         //Assert
