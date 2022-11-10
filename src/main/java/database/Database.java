@@ -1,20 +1,13 @@
-package persistance;
+package database;
 
 import Comparatorer.*;
-import Superhero.Superhero;
-
+import superhero.Superhero;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Database {
     private boolean change = false;
-
-
-
     public ArrayList<Superhero> superheroes = new ArrayList<>();
-
-
 
 
     public void createSuperHero(String superHeroName, String reelName, boolean isHuman, String superPower, int creationYear, double powerLevel) {
@@ -28,16 +21,16 @@ public class Database {
         return superheroes;
     }
 
-    public ArrayList<Superhero> findSuperhero(String searchTerm){
+    public ArrayList<Superhero> findSuperhero(String searchTerm) {
         ArrayList<Superhero> searchResult = new ArrayList<>();
         for (Superhero hero : superheroes) {
             if (hero.getSuperHeroName().contains(searchTerm)) {
                 searchResult.add(hero);
             }
-        }return searchResult;
+        }
+        return searchResult;
 
     }
-
     public boolean deleteSuperhero(Superhero superhero) {
         boolean result = superheroes.remove(superhero);
 
@@ -45,48 +38,41 @@ public class Database {
 
         return result;
     }
-
     public boolean isChange() {
         return change;
     }
-
     public void setChange(boolean change) {
         this.change = change;
 
     }
-
-    public void clearData(){
-       superheroes.clear();
+    public void clearData() {
+        superheroes.clear();
     }
-
     public void sortNameMethod() throws IOException {
         superheroes.sort(new SuperheroNameComparator());
     }
-
-    public void sortSuperPower(){
+    public void sortSuperPower() {
         superheroes.sort(new SuperheroSuperPowerComparator());
     }
-
-    public void sortSuperHeroRealName(){
+    public void sortSuperHeroRealName() {
         superheroes.sort(new SuperheroReelNameComparator());
     }
-
-    public void sortCreationYear(){
+    public void sortCreationYear() {
         superheroes.sort(new SuperheroCreationYearComparator());
     }
-
-    public void sortIsHuman(){
+    public void sortIsHuman() {
         superheroes.sort(new SuperheroIsHumanComparator());
     }
-
-    public void sortPower(){
+    public void sortPower() {
         superheroes.sort(new SuperheroPowerLevelComparator());
     }
-
-    public void primaryNameSecondaryRealName(){
+    public void primaryNameSecondaryRealName() {
         superheroes.sort(new SuperheroNameComparator().thenComparing(new SuperheroReelNameComparator()));
     }
-
+    public void sortPrimaryAndSecondary(String primaryAttribute, String secondaryAttribute) {
+        FlexibleComparator comparator = new FlexibleComparator(primaryAttribute);
+        superheroes.sort(comparator.thenComparing(new FlexibleComparator(secondaryAttribute)));
+    }
 }
 
 

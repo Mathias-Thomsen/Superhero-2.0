@@ -1,8 +1,8 @@
-import Superhero.Superhero;
+import superhero.Superhero;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import persistance.Database;
-import ui.Controller;
+import database.Database;
+import controller.Controller;
 
 import java.util.ArrayList;
 

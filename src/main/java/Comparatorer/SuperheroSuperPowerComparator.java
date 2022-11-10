@@ -1,6 +1,6 @@
 package Comparatorer;
 
-import Superhero.Superhero;
+import superhero.Superhero;
 
 import java.util.Comparator;
 

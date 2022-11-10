@@ -1,4 +1,4 @@
-package Superhero;
+package main;
 
 import ui.Userinterface;
 

@@ -1,4 +1,4 @@
-package Superhero;
+package superhero;
 
 public class Superhero {
     private String superHeroName;
@@ -9,7 +9,6 @@ public class Superhero {
     private double powerLevel;
 
     //konstruktør
-
     public Superhero() {
 
     }
@@ -41,31 +40,24 @@ public class Superhero {
     public double getPowerLevel() {
         return powerLevel;
     }
-
     public String toString() {
         return getSuperHeroName() + ", " + getSuperPower() + ", " + getReelName() + ", " + getCreationYear() + ", " + isHuman() + ", " + getPowerLevel();
     }
-
     public void setSuperheroName(String newSuperheroName) {
         this.superHeroName = newSuperheroName;
     }
-
     public void setReelName(String newReelName) {
         this.reelName = newReelName;
     }
-
     public void setSuperPower(String newSuperPower) {
         this.superPower = newSuperPower;
     }
-
     public void setCreationYear(String newCreationYear) {
         this.creationYear = Integer.parseInt(newCreationYear);
     }
-
     public void setIsHuman(boolean newIsHuman) {
         this.isHuman = newIsHuman;
     }
-
     public void setPowerLevel(String newPowerLevel) {
         this.powerLevel = Double.parseDouble(newPowerLevel);
     }

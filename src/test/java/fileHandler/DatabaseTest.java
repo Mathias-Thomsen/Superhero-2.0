@@ -1,13 +1,9 @@
-package persistance;
+package fileHandler;
 
-import Superhero.Superhero;
+import database.Database;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 
 class DatabaseTest {

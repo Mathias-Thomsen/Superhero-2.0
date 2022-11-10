@@ -1,38 +1,38 @@
 package ui;
 
-import Superhero.Superhero;
+import controller.Controller;
+import superhero.Superhero;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class Userinterface {
     Scanner scanner = new Scanner(System.in);
     Controller controller = new Controller();
     private String name;
-    boolean userValgFalse = false;
-
+    private boolean userValgFalse = false;
+    private String primaryAttribut = "";
+    private String secondaryAttribute = "";
 
     public void menu() throws IOException {
-
-
         int menuValg = 0;
 
         while (menuValg != 9) {
             System.out.println("""
             -------------------------
-            Database med superheroes!
+            Database med superheroes! (Husk at loade programmet første gang du åbner det)
             -------------------------
             1. Opret superhero
             2. Se liste af superheroes
             3. Søg efter superheroes
             4. Redigere superhero
             5. Slet superhero
-            6. Gem liste af superheroes 
+            6. Gem liste af superheroes
             7. Load liste af superheroes
-            8. Sort database of superheroes
+            8. Sortering af superhero data
             9. Afslut
             """);
-
 
             do {
                 String valg = scanner.nextLine().trim();
@@ -51,34 +51,18 @@ public class Userinterface {
 
     }
     public void startprogram(int menuValg) throws IOException {
-        if (menuValg == 1) {
-            createSuperhero();
-        } else if (menuValg == 2) {
-             printList();
-        } else if (menuValg == 3) {
-            searchSuperhero();
-        } else if (menuValg == 4) {
-            editSuperhero();
-        } else if (menuValg == 5) {
-            deleteSuperheroUserInput();
-        } else if (menuValg == 6) {
-            saveData();
-
-        }else if (menuValg == 7){
-            loadData();
-
-
-        } else if (menuValg == 8){
-            try {
-                sortingMenu();
-            }catch (IOException e){
-                System.out.println("Den fejlede");
-            }
-
-        }else if (menuValg == 9) {
-            System.out.println("Programmet afsluttes");
+        switch (menuValg) {
+            case 1 -> createSuperhero();
+            case 2 -> printList();
+            case 3 -> searchSuperhero();
+            case 4 -> editSuperhero();
+            case 5 -> deleteSuperheroUserInput();
+            case 6 -> saveData();
+            case 7 -> loadData();
+            case 8 -> sortingMenu();
+            case 9 -> exitProgram();
+            default -> System.out.println("Ugyldigt Input\n");
         }
-
     }
     public void sortingMenu() throws IOException {
         int userSorteringsValg = 0;
@@ -87,11 +71,12 @@ public class Userinterface {
                 Vælg sorterings metode:
                 -----------------------
                 1. Sorter efter superhero navn
-                2. Sorter efter superkrafter
+                2. Sorter efter superkræfter
                 3. Sorter efter rigtige navn
                 4. Sorter efter oprindelses år
                 5. Sorter efter menneske
                 6. Sorter efter styrke
+                7. Sorter efter udvalgte primær og sekundær attributter
                 9. Gå tilbage til menu
                 """);
         do {
@@ -107,47 +92,201 @@ public class Userinterface {
         } while (!userValgFalse);
         vælgSortingMetode(userSorteringsValg);
     }
+    public void sortWithToAttributes() throws IOException {
+        int userInputPrimaryAttributes = 0;
+        int userInputSecondaryAttributes = 0;
+
+
+        System.out.println("""
+                -----------------------
+                Vælg den primære attribut
+               
+                1. Superhero navn
+                2. Superkræfter
+                3. Rigtige navn
+                4. Oprindelses år
+                5. Menneske eller ej
+                6. Styrke
+                7. Gå tilbage til sorteringsmenu
+                9. Gå tilbage til hovedmenu
+                """);
+
+        do {
+            String primaryAttributes = scanner.nextLine().trim();
+            try {
+                userInputPrimaryAttributes = Integer.parseInt(primaryAttributes);
+                userValgFalse = true;
+            } catch (NumberFormatException e) {
+                System.out.print("Der skete en fejl! - Indtast venligst et gyldigt nummer: ");
+                scanner.nextLine();
+            }
+
+        } while (!userValgFalse);
+
+        do {
+            switch (userInputPrimaryAttributes) {
+                case 1 -> primaryAttribut = "superHeroName";
+                case 2 -> primaryAttribut = "reelName";
+                case 3 -> primaryAttribut = "isHuman";
+                case 4 -> primaryAttribut = "superPower";
+                case 5 -> primaryAttribut = "creationYear";
+                case 6 -> primaryAttribut = "powerLevel";
+                case 7 -> vælgSortingMetode(userInputPrimaryAttributes);
+                case 8 -> menu();
+            }
+
+            System.out.println("""
+                    -----------------------
+                    Vælg den sekundære attribut (du kan ikke vælge den samme som primære)
+                                       
+                    1. Superhero navn
+                    2. Superkræfter
+                    3. Rigtige navn
+                    4. Oprindelses år
+                    5. Menneske eller ej
+                    6. Styrke
+                    7. Gå tilbage til sorteringsmenu
+                    9. Gå tilbage til hovedmenu
+                    """);
+
+            do {
+                String secondaryAttribut = scanner.nextLine().trim();
+                try {
+                    userInputSecondaryAttributes = Integer.parseInt(secondaryAttribut);
+                    userValgFalse = true;
+                } catch (NumberFormatException e) {
+                    System.out.print("Der skete en fejl! - Indtast venligst et gyldigt nummer: ");
+                    scanner.nextLine();
+                }
+
+            } while (!userValgFalse);
+
+
+            if (userInputPrimaryAttributes != userInputSecondaryAttributes) {
+                switch (userInputSecondaryAttributes) {
+                    case 1 -> secondaryAttribute = "superHeroName";
+                    case 2 -> secondaryAttribute = "reelName";
+                    case 3 -> secondaryAttribute = "isHuman";
+                    case 4 -> secondaryAttribute = "superPower";
+                    case 5 -> secondaryAttribute = "creationYear";
+                    case 6 -> secondaryAttribute = "powerLevel";
+                    case 7 -> vælgSortingMetode(userInputPrimaryAttributes);
+                    case 8 -> menu();
+                }
+
+                getPrimaryAndSecondary();
+
+            } else {
+                System.out.println("Den sekundære attribut skal være forskellig fra din primære");
+                userValgFalse = false;
+            }
+
+        } while (!userValgFalse);
+    }
+    public void getPrimaryAndSecondary(){
+        try {
+            controller.getSortPrimaryAndSecondary(primaryAttribut, secondaryAttribute);
+            printList();
+        } catch (IOException e) {
+            System.out.println("Kan ikke sortere efter primære og sekundære");
+        }
+    }
+    public void exitProgram()  {
+        try {
+            System.out.print("Programmet afsluttes");
+            TimeUnit.SECONDS.sleep(1);
+            System.out.print(".");
+            TimeUnit.SECONDS.sleep(1);
+            System.out.print(".");
+            TimeUnit.SECONDS.sleep(1);
+            System.out.print(".");
+            System.exit(1);
+
+        } catch (InterruptedException e) {
+            System.out.println("Systemet kan ikke afslutte");
+        }
+
+
+    }
     public void printList() throws IOException {
         for (Superhero controller : controller.getSuperheroes()) {
-            String yesOrNo = null;
+            String yesOrNo;
             if (controller.isHuman()){
                 yesOrNo = "Ja";
             } else {
                 yesOrNo = "Nej";
             }
-
             System.out.println("------------------\n"
-                    + "Superheltenavn: " + controller.getSuperHeroName() + "\n"
-                    + "Superkraft: " + controller.getSuperPower() + "\n"
-                    + "Virkelige navn: " + controller.getReelName() + "\n"
-                    + "Oprindelsesår: " + controller.getCreationYear() + "\n"
-                    + "Er menneske: " + yesOrNo + "\n"
-                    + "Styrke: " + controller.getPowerLevel());
+                    + "Superheltenavn:... " + controller.getSuperHeroName() + "\n"
+                    + "Superkraft:....... " + controller.getSuperPower() + "\n"
+                    + "Virkelige navn:... " + controller.getReelName() + "\n"
+                    + "Oprindelsesår:.... " + controller.getCreationYear() + "\n"
+                    + "Er menneske:...... " + yesOrNo + "\n"
+                    + "Styrke:........... " + controller.getPowerLevel());
         }
     }
     public void vælgSortingMetode(int userSorteringValg) throws IOException {
-        if (userSorteringValg == 1) {
+
+        switch (userSorteringValg) {
+            case 1 -> getSortNameMethod();
+            case 2 -> getSortSuperPower();
+            case 3 -> getSuperHerorealName();
+            case 4 -> getSortCreationYear();
+            case 5 -> getSortIsHuman();
+            case 6 -> getSortPower();
+            case 7 -> sortWithToAttributes();
+            case 9 -> menu();
+            default -> System.out.println("Ugyldigt Input\n");
+        }
+
+    }
+    public void getSortNameMethod() {
+        try {
             controller.getSortNameMethod();
             printList();
-        } else if (userSorteringValg == 2) {
-            controller.getSortSuperPower();
-            printList();
-        } else if (userSorteringValg == 3) {
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void getSuperHerorealName() {
+        try {
             controller.getSuperHerorealName();
             printList();
-        } else if (userSorteringValg == 4) {
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void getSortSuperPower() {
+        try {
+            controller.getSortSuperPower();
+            printList();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void getSortCreationYear(){
+        try {
             controller.getSortCreationYear();
             printList();
-        } else if (userSorteringValg == 5) {
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void getSortIsHuman(){
+        try {
             controller.getSortIsHuman();
             printList();
-        } else if (userSorteringValg == 6) {
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void getSortPower() {
+        try {
             controller.getSortPower();
             printList();
-        } else if (userSorteringValg == 9) {
-            startprogram(userSorteringValg);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        menu();
     }
     public void saveData() {
         if(controller.isChange()) {
@@ -396,7 +535,7 @@ public class Userinterface {
     public void deleteSuperheroUserInput(){
         System.out.println("-----------------------------------------------------");
         System.out.println("Indtast en superhero du vil slette: ");
-        String userDeleteSuperhero = scanner.nextLine();
+        String userDeleteSuperhero = scanner.nextLine().toLowerCase();
         ArrayList<Superhero> searchDeleteResult = new ArrayList<>();
 
         int index = 1;

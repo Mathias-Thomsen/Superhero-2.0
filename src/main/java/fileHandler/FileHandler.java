@@ -1,6 +1,6 @@
-package persistance;
+package fileHandler;
 
-import Superhero.Superhero;
+import superhero.Superhero;
 import java.util.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -29,8 +29,6 @@ public class FileHandler {
         }
         output.close();
     }
-
-
     public void loadData(ArrayList<Superhero> allSuperheroes) throws FileNotFoundException {
 
         Scanner reader = new Scanner(new File("data/superheroes.csv"));
