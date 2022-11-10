@@ -111,9 +111,9 @@ public class Userinterface {
         for (Superhero controller : controller.getSuperheroes()) {
             String yesOrNo = null;
             if (controller.isHuman()){
-                yesOrNo = "Yes";
+                yesOrNo = "Ja";
             } else {
-                yesOrNo = "No";
+                yesOrNo = "Nej";
             }
 
             System.out.println("------------------\n"
@@ -247,9 +247,9 @@ public class Userinterface {
         for (Superhero controller : controller.getSuperheroes()) {
             String yesOrNo = null;
             if (controller.isHuman()){
-                yesOrNo = "Yes";
+                yesOrNo = "Ja";
             } else {
-                yesOrNo = "No";
+                yesOrNo = "Nej";
             }
 
             System.out.println("------------------\n"
